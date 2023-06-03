@@ -25,6 +25,8 @@ Product.fromJson(Map<String, dynamic> json){
       });
     }
 }
+
+
 }
 
 class ProductModel {
@@ -62,5 +64,18 @@ class ProductModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     typeId = json['type_id'];
+  }
+
+  Map<String, dynamic> toJson(){
+    return{
+      "id":this.id,
+      "name":this.name,
+      "price":this.price,
+      "img":this.img,
+      "location":this.location,
+      "createdAt": this.createdAt,
+      "updatedAt" : this.updatedAt,
+      "typeId": this.typeId,
+    };
   }
 }

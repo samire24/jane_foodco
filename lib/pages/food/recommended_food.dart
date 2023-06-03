@@ -23,7 +23,7 @@ class RecommendedFoodDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
-    Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
+     Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -43,29 +43,30 @@ class RecommendedFoodDetails extends StatelessWidget {
                   ),
                 ),
                 GetBuilder<PopularProductController>(builder: (controller){
-                  return Stack(
-                    children: [
-                      AppIcon(icon: Icons.add_shopping_cart_outlined),
-                      Get.find<PopularProductController>().totalItems>=1? Positioned(
-                        right: 0,
-                        top: 0,
-                        child: GestureDetector(
-                          onTap:(){
-                            // Get.to(()=>CartPage());
-                          },
-                          child: AppIcon(icon: Icons.circle, size: 20,iconColor: Colors.transparent,
-                            backGroundColor: AppColors.mainColor,),
-                        ),
-                      ): Container(),
-                      Get.find<PopularProductController>().totalItems>=1? Positioned(
-                        right: 3,
-                        top: 3,
-                        child: BigText(text: Get.find<PopularProductController>().totalItems.toString(),
-                          size: 12,
-                          color: Colors.white,),
-                      ): Container(),
+                  return GestureDetector(
+                    onTap: (){
+                      if(controller.totalItems>=1)
+                      Get.toNamed(RouteHelper.cartPage);
+                    },
+                    child: Stack(
+                      children: [
+                        AppIcon(icon: Icons.add_shopping_cart_outlined),
+                        Get.find<PopularProductController>().totalItems>=1? Positioned(
+                          right: 0,
+                          top: 0,
+                            child: AppIcon(icon: Icons.circle, size: 20,iconColor: Colors.transparent,
+                              backGroundColor: AppColors.mainColor,),
+                        ): Container(),
+                        Get.find<PopularProductController>().totalItems>=1? Positioned(
+                          right: 3,
+                          top: 3,
+                          child: BigText(text: Get.find<PopularProductController>().totalItems.toString(),
+                            size: 12,
+                            color: Colors.white,),
+                        ): Container(),
 
-                    ],
+                      ],
+                    ),
                   );
                 }),
               ],
@@ -128,12 +129,17 @@ class RecommendedFoodDetails extends StatelessWidget {
                 top: Dimensions.height10,
                 bottom: Dimensions.height10,
               ),
+              decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius20),
+                color: Colors.white
+              ),
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                     onTap: (){
-                      //controller.setQuantity(false);
+                      controller.setQuantity(false);
                     },
                     child: AppIcon(
                       icon: Icons.remove,
@@ -142,8 +148,8 @@ class RecommendedFoodDetails extends StatelessWidget {
                       iconSize: Dimensions.iconSize24,
                     ),
                   ),
-                  BigText(text: "\$ ${product.price!}  X ${controller.inCartItems} ",
-                    color: AppColors.mainBlackColor,size: Dimensions.font26,),
+                  BigText(text: "\$${product.price!}  X ${controller.inCartItems}",
+                    color: Colors.black,size: Dimensions.font26,),
                   GestureDetector(
                     onTap: (){
                       controller.setQuantity(true);

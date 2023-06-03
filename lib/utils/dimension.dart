@@ -45,4 +45,7 @@ class Dimensions{
   //butttom height
   static double bottomHeightBar = screenHeight/7.03;
 
+  //spalshhscreen dimesnions
+    static double splashImg = screenHeight/3.38;
+
 }

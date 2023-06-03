@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jane_foodco/controllers/popular_product_controller.dart';
 import 'package:jane_foodco/controllers/recommended_product_controller.dart';
+import 'package:jane_foodco/pages/food/recommended_food.dart';
 import 'package:jane_foodco/routes/route_helper.dart';
 import 'package:jane_foodco/models/products_models.dart';
 import 'package:jane_foodco/utils/app_constants.dart';
@@ -98,11 +99,12 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
             return recommendedProduct.isLoaded? ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: recommendedProduct.recommendedProductList.length ,
+                itemCount: recommendedProduct.recommendedProductList.length,
                 itemBuilder: (context, index){
                   return GestureDetector(
                     onTap: (){
-                      Get.toNamed(RouteHelper.getRecommendedFood(index));
+                      //Get.toNamed(RouteHelper.getRecommendedFood(index));
+                      Get.to(()=> RecommendedFoodDetails(pageId: index,));
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20,bottom: Dimensions.height10),
@@ -201,7 +203,7 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
           GestureDetector(
             onTap: (){
 
-              Get.toNamed(RouteHelper.getPopularFood(index));
+              Get.toNamed(RouteHelper.getPopularFood(index, "home"));
             },
             child: Container(
               height: Dimensions.pageViewContainer,
